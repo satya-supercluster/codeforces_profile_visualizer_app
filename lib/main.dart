@@ -1,3 +1,5 @@
+import 'package:codeforces_profile_visualizer_app/pages/HomeScreen.dart';
+import 'package:codeforces_profile_visualizer_app/pages/SplashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -16,7 +18,11 @@ class MyApp extends StatelessWidget {
         fontFamily: GoogleFonts.poppins().fontFamily,
         useMaterial3: true,
       ),
-      home: Scaffold(body: Text("Hello")),
+      initialRoute: '/splash',
+      routes: {
+        '/splash': (context) => SplashScreen(),
+        '/home': (context) => HomeScreen(),
+      },
     );
   }
 }
