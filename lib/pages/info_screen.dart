@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // Import the intl package
 
@@ -16,7 +17,7 @@ class _InfoScreenState extends State<InfoScreen> {
   Widget build(BuildContext context) {
     var width=MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.white70,
+      backgroundColor: const Color.fromARGB(255, 156, 163, 175),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
@@ -94,11 +95,22 @@ class _InfoScreenState extends State<InfoScreen> {
                         border: Border.all(width:1,color:Colors.black),
                         borderRadius: const BorderRadius.all(Radius.circular(10))
                       ),
-                      child: Image(
-                        image: NetworkImage(
+                        
+                      child:  Image.network(
                         '${widget.info['titlePhoto']}',
-                        ),
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fill,
+                        loadingBuilder: (BuildContext context, Widget child,
+                            ImageChunkEvent? loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Center(
+                            child: CircularProgressIndicator(
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes!
+                                  : null,
+                            ),
+                          );
+                        },
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -107,10 +119,10 @@ class _InfoScreenState extends State<InfoScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                              'Name: ${widget.info['firstName'] ?? ''} ${widget.info['lastName'] ?? ''}',
+                              '${widget.info['firstName'] ?? ''} ${widget.info['lastName'] ?? ''}',
                               style: const TextStyle(
                                 fontSize: 18,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           Text(
@@ -130,20 +142,33 @@ class _InfoScreenState extends State<InfoScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                const SizedBox(height: 4),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                    color:const Color.fromARGB(255, 203, 213, 225),
+                  ),
+                  padding:EdgeInsets.symmetric(horizontal: 8),
+                  child:Column(
+                    children: [
+                      const SizedBox(height: 4),
+                        InfoTile(
+                          label: 'Country',
+                          value: '${widget.info['country']}',
+                        ),
+                        InfoTile(
+                          label: 'City',
+                          value: '${widget.info['city']}',
+                        ),
+                        InfoTile(
+                          label: 'Organization',
+                          value: '${widget.info['organization']}',
+                        ),
+                        const SizedBox(height: 8),
+                    ],
+                  )
+                ),
                 const SizedBox(height: 8),
-                InfoTile(
-                  label: 'Country',
-                  value: '${widget.info['country']}',
-                ),
-                InfoTile(
-                  label: 'City',
-                  value: '${widget.info['city']}',
-                ),
-                InfoTile(
-                  label: 'Organization',
-                  value: '${widget.info['organization']}',
-                ),
-                const SizedBox(height: 16),
                 const Text(
                   'Codeforces Information',
                   style: TextStyle(
@@ -151,35 +176,48 @@ class _InfoScreenState extends State<InfoScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 8),
-                InfoTile(
-                  label: 'Rating',
-                  value: '${widget.info['rating']}',
-                ),
-                InfoTile(
-                  label: 'Max Rating',
-                  value: '${widget.info['maxRating']}',
-                ),
-                InfoTile(
-                  label: 'Max Rank',
-                  value: '${widget.info['maxRank']}',
-                ),
-                InfoTile(
-                  label: 'Contribution',
-                  value: '${widget.info['contribution']}',
-                ),
-                InfoTile(
-                  label: 'FriendsOfCount',
-                  value: '${widget.info['friendOfCount']}',
-                ),
-                InfoTile(
-                  label: 'Last Online',
-                  value: _formatDate(widget.info['lastOnlineTimeSeconds']),
-                ),
-                InfoTile(
-                  label: 'Registration Date',
-                  value: _formatDate(widget.info['registrationTimeSeconds']),
-                ),
+                const SizedBox(height: 4),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                    color:const Color.fromARGB(255, 203, 213, 225), 
+                  ),
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 4),
+                      InfoTile(
+                        label: 'Rating',
+                        value: '${widget.info['rating']}',
+                      ),
+                      InfoTile(
+                        label: 'Max Rating',
+                        value: '${widget.info['maxRating']}',
+                      ),
+                      InfoTile(
+                        label: 'Max Rank',
+                        value: '${widget.info['maxRank']}',
+                      ),
+                      InfoTile(
+                        label: 'Contribution',
+                        value: '${widget.info['contribution']}',
+                      ),
+                      InfoTile(
+                        label: 'FriendsOfCount',
+                        value: '${widget.info['friendOfCount']}',
+                      ),
+                      InfoTile(
+                        label: 'Last Online',
+                        value: _formatDate(widget.info['lastOnlineTimeSeconds']),
+                      ),
+                      InfoTile(
+                        label: 'Registration Date',
+                        value: _formatDate(widget.info['registrationTimeSeconds']),
+                      ),
+                      SizedBox(height:8)
+                    ],
+                  ),
+                )
               ],
             ),
           ),
@@ -205,7 +243,7 @@ class InfoTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
