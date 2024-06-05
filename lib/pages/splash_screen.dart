@@ -1,9 +1,10 @@
 import 'dart:async';
-
+import 'package:codeforces_profile_visualizer_app/pages/animated_svg_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -16,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _navigateToHome() {
-    Timer(Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 3), () {
       Navigator.of(context).pushReplacementNamed('/home');
     });
   }
@@ -24,20 +25,16 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white60,
+      backgroundColor: Colors.white70,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(
-              'assets/code.svg',
-              width: 150,
-              height: 150,
-            ),
-            SizedBox(height: 32.0),
+            const AnimatedSvgImage(imagePath: 'assets/code.svg'),
+            const SizedBox(height: 32.0),
             Column(
               children: [
-                Text(
+                const Text(
                   "Codeforces",
                   style: TextStyle(
                     fontSize: 30,
@@ -67,8 +64,8 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
       bottomNavigationBar: Container(
-        padding: EdgeInsets.all(16.0),
-        child: Text(
+        padding: const EdgeInsets.all(16.0),
+        child: const Text(
           "Made in ❤️ with code\nby Satyam Gupta",
           style: TextStyle(
             fontSize: 16.0,

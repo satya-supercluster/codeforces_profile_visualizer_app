@@ -1,5 +1,5 @@
-import 'package:codeforces_profile_visualizer_app/pages/HomeScreen.dart';
-import 'package:codeforces_profile_visualizer_app/pages/SplashScreen.dart';
+import 'package:codeforces_profile_visualizer_app/pages/home_screen.dart';
+import 'package:codeforces_profile_visualizer_app/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/splash',
       routes: {
-        '/splash': (context) => SplashScreen(),
-        '/home': (context) => HomeScreen(),
+        '/splash': (context) => const SplashScreen(),
+        '/home': (context) => const HomeScreen(),
       },
     );
   }
