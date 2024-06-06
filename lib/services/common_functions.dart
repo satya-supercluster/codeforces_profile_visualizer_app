@@ -21,3 +21,13 @@ Future<List<Map<String, dynamic>>> fetchUserRating(String username) async {
     throw data['comment'].toString();
   }
 }
+Future<List<Map<String, dynamic>>> fetchUserProblem(String username) async {
+  final response = await http.get(Uri.parse('https://codeforces.com/api/user.status?handle=$username'));
+  Map<String, dynamic> data = jsonDecode(response.body);
+  if (data['status'] == 'OK') {
+  List<Map<String, dynamic>> result = List<Map<String, dynamic>>.from(data['result']);
+  return result;
+  } else {
+    throw data['comment'].toString();
+  }
+}
