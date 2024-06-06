@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:codeforces_profile_visualizer_app/pages/info_screen.dart';
+import 'package:codeforces_profile_visualizer_app/pages/recent_contests.dart';
 import 'package:codeforces_profile_visualizer_app/services/common_functions.dart';
 import 'package:flutter/material.dart';
 import 'animated_svg_image.dart';
@@ -17,6 +18,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _usernameController = TextEditingController();
   Map<String, dynamic>? _userInfo;
+  List<Map<String, dynamic>>? _userRating;
   String? _errorMessage;
   Timer? _errorTimer;
   Timer? _successTimer;
@@ -86,8 +88,10 @@ class _SearchScreenState extends State<SearchScreen> {
     });
     try {
       final userInfo = await fetchUserInfo(_usernameController.text);
+      final userRating = await fetchUserRating(_usernameController.text);
       setState(() {
         _userInfo = userInfo;
+        _userRating=userRating;
         _errorMessage = null;
         verdict = "Success!";
         verdictColor = Colors.green[700]!;
@@ -97,6 +101,7 @@ class _SearchScreenState extends State<SearchScreen> {
     } catch (e) {
       setState(() {
         _userInfo = null;
+        _userRating=null;
         _errorMessage = e.toString();
         verdict = "Error!!!";
         verdictColor = Colors.red[700]!;
@@ -258,8 +263,8 @@ class _SearchScreenState extends State<SearchScreen> {
                       ],
                     ),
                     const SizedBox(height:10),
-                    const Text("Profile Data",style: TextStyle(fontSize: 25,color:Colors.black,fontWeight: FontWeight.w900),),
-                    const SizedBox(height:10),
+                    const Text("Profile Data",style: TextStyle(fontSize: 25,color:Colors.deepPurple,fontWeight: FontWeight.w900),),
+                    const SizedBox(height:20),
                     GestureDetector(
                       onTap:()=>{
                         Navigator.push(context, MaterialPageRoute(builder: (context)=>InfoScreen(info: _userInfo??{})))
@@ -268,11 +273,11 @@ class _SearchScreenState extends State<SearchScreen> {
                         width:double.infinity,
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         decoration: BoxDecoration(
-                          color:Colors.deepOrange[800],
+                          color:Colors.green[800],
                           borderRadius: const BorderRadius.all(Radius.circular(10)),
                           boxShadow: [
                               BoxShadow(
-                                color: Colors.deepOrange.withOpacity(0.3),
+                                color: Colors.green.withOpacity(0.3),
                                 spreadRadius: 2,
                                 blurRadius: 5,
                                 offset: const Offset(0, 3),
@@ -280,6 +285,29 @@ class _SearchScreenState extends State<SearchScreen> {
                             ],
                         ),
                         child: const Center(child: Text("User Information",style:TextStyle(fontSize: 20,fontWeight: FontWeight.w600,color: Colors.white),)),
+                      ),
+                    ),
+                    const SizedBox(height:20),
+                    GestureDetector(
+                      onTap:()=>{
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>RecentContestsScreen(contestData: _userRating??[])))
+                      },
+                      child: Container(
+                        width:double.infinity,
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        decoration: BoxDecoration(
+                          color:Colors.green[800],
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                          boxShadow: [
+                              BoxShadow(
+                                color: Colors.green.withOpacity(0.3),
+                                spreadRadius: 2,
+                                blurRadius: 5,
+                                offset: const Offset(0, 3),
+                              ),
+                            ],
+                        ),
+                        child: const Center(child: Text("Recent Contests",style:TextStyle(fontSize: 20,fontWeight: FontWeight.w600,color: Colors.white),)),
                       ),
                     ),
                     const SizedBox(height:10),

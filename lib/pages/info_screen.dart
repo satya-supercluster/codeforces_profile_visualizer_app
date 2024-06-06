@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // Import the intl package
 
@@ -90,6 +89,7 @@ class _InfoScreenState extends State<InfoScreen> {
                   children: [
                     Container(
                       width:(1/3)*width,
+                      height: (1/3)*width,
                       clipBehavior: Clip.hardEdge,
                       decoration: BoxDecoration(
                         border: Border.all(width:1,color:Colors.black),
@@ -144,11 +144,11 @@ class _InfoScreenState extends State<InfoScreen> {
                 ),
                 const SizedBox(height: 4),
                 Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(8)),
-                    color:const Color.fromARGB(255, 203, 213, 225),
+                    color:Color.fromARGB(255, 203, 213, 225),
                   ),
-                  padding:EdgeInsets.symmetric(horizontal: 8),
+                  padding:const EdgeInsets.symmetric(horizontal: 8),
                   child:Column(
                     children: [
                       const SizedBox(height: 4),
@@ -178,10 +178,10 @@ class _InfoScreenState extends State<InfoScreen> {
                 ),
                 const SizedBox(height: 4),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(8)),
-                    color:const Color.fromARGB(255, 203, 213, 225), 
+                    color:Color.fromARGB(255, 203, 213, 225), 
                   ),
                   child: Column(
                     children: [
@@ -214,7 +214,7 @@ class _InfoScreenState extends State<InfoScreen> {
                         label: 'Registration Date',
                         value: _formatDate(widget.info['registrationTimeSeconds']),
                       ),
-                      SizedBox(height:8)
+                      const SizedBox(height:8)
                     ],
                   ),
                 )

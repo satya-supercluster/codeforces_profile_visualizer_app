@@ -6,7 +6,7 @@ class AnimatedSvgImage extends StatefulWidget {
   const AnimatedSvgImage({super.key, required this.imagePath});
 
   @override
-  _AnimatedSvgImageState createState() => _AnimatedSvgImageState();
+  State<AnimatedSvgImage> createState() => _AnimatedSvgImageState();
 }
 
 class _AnimatedSvgImageState extends State<AnimatedSvgImage> with SingleTickerProviderStateMixin {
